@@ -108,7 +108,7 @@ SBOX = [
 # Shift Matrix for each round of keys
 SHIFT = [1, 1, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 1]
 
-
+#Convert string to bitarray
 def str_to_bitarray(s):
     # Converts string to a bit array.
     bit_arr = list()
@@ -120,7 +120,7 @@ def str_to_bitarray(s):
             bit_arr.append(int(bit))
     return bit_arr
 
-
+#convert bitarray to string
 def bitarray_to_str(bit_arr):
     # Converts bit array to string
     result = ''
@@ -136,13 +136,15 @@ class DES:
         self.key_text = ""
         self.plain_text = ""
         self.all_keys = []
-
+      
     @staticmethod
+    #performs left shift
     def left_shift(m_array, round_num):
         num_shift = SHIFT[round_num]
         return m_array[num_shift:] + m_array[:num_shift]
 
     @staticmethod
+     #performs permutation 2
     def pc2(m_array):
         keyarray_48bit = []
         for i in range(0, len(PC_2)):
@@ -150,6 +152,7 @@ class DES:
         return keyarray_48bit
 
     @staticmethod
+    #single funtion to call initial permutation and inverse permutation  
     def perms_on_plaintext(m_array, is_inverse_permutation):
         perm_array = IP if is_inverse_permutation is False else InvP
         processed_array = []
@@ -158,11 +161,13 @@ class DES:
         return processed_array
 
     @staticmethod
+    #XOR function
     def XOR(array_one, array_two):
         # xor function - This function is complete
         return [i ^ j for i, j in zip(array_one, array_two)]
 
     @staticmethod
+    #splits the text in blocks of 8 bits
     def split_long_text(stuff_to_split, split_at_every):
         return [stuff_to_split[i:i + split_at_every] for i in range(0, len(stuff_to_split), split_at_every)]
 
